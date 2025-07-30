@@ -1,0 +1,160 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="mixed_world">
+
+    <!-- 地面と光 -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <!-- 広い床 -->
+    <model name="room">
+      <static>true</static>
+      <link name="floor">
+        <collision name="collision">
+          <geometry><box><size>10 10 0.1</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>10 10 0.1</size></box></geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- 壁（4面） -->
+    <!-- 前 -->
+    <model name="wall_front">
+      <static>true</static>
+      <link name="wall_link">
+        <collision name="collision">
+          <geometry><box><size>10 0.1 2</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>10 0.1 2</size></box></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient></material>
+        </visual>
+        <pose>0 5.05 1 0 0 0</pose>
+      </link>
+    </model>
+
+    <!-- 後 -->
+    <model name="wall_back">
+      <static>true</static>
+      <link name="wall_link">
+        <collision name="collision">
+          <geometry><box><size>10 0.1 2</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>10 0.1 2</size></box></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient></material>
+        </visual>
+        <pose>0 -5.05 1 0 0 0</pose>
+      </link>
+    </model>
+
+    <!-- 左 -->
+    <model name="wall_left">
+      <static>true</static>
+      <link name="wall_link">
+        <collision name="collision">
+          <geometry><box><size>0.1 10 2</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.1 10 2</size></box></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient></material>
+        </visual>
+        <pose>-5.05 0 1 0 0 0</pose>
+      </link>
+    </model>
+
+    <!-- 右 -->
+    <model name="wall_right">
+      <static>true</static>
+      <link name="wall_link">
+        <collision name="collision">
+          <geometry><box><size>0.1 10 2</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.1 10 2</size></box></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient></material>
+        </visual>
+        <pose>5.05 0 1 0 0 0</pose>
+      </link>
+    </model>
+
+    <!-- 利用可能な物体 -->
+    <include>
+      <uri>model://cafe_table</uri>
+      <pose>1 0 0.05 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://table_marble</uri>
+      <pose>-2 -1 0.7 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://mailbox</uri>
+      <pose>3 1 0.05 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://first_2015_trash_can</uri>
+      <pose>2 1 0.05 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://Hatchback red copy</uri>
+      <pose>2 3.5 0.05 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://Shelf with ARUco boxes</uri>
+      <pose>-2 -4 0.05 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://Sofa</uri>
+      <pose>0 -3 0.05 0 0 1.5708</pose>
+    </include>
+
+    <include>
+      <uri>model://WoodenChair</uri>
+      <pose>2 -3 0.05 0 0 2.3562</pose>
+    </include>
+
+    <include>
+      <uri>model://tv_65in_emissive</uri>
+      <pose>4 -3 1 0 0 0</pose>
+    </include>
+
+    <!-- 🔧 ROS連携プラグイン -->
+    <plugin name="gazebo_ros_factory" filename="libgazebo_ros_factory.so"/>
+
+    <!-- ⚙️ 物理エンジン設定 -->
+    <physics name='default_physics' type='ode'>
+      <max_step_size>0.001</max_step_size>
+      <real_time_update_rate>1000</real_time_update_rate>
+      <real_time_factor>1</real_time_factor>
+      <gravity>0 0 -9.8</gravity>
+      <enable_physics>true</enable_physics>
+    </physics>
+
+    <!-- ⏱ 初期シミュレーション状態 -->
+    <state world_name='mixed_world'>
+      <sim_time>0 0</sim_time>
+      <real_time>0 0</real_time>
+      <wall_time>0 0</wall_time>
+      <pause>true</pause>
+    </state>
+  </world>
+</sdf>
+

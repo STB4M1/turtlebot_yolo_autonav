@@ -1,0 +1,22 @@
+# Python関連
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.log
+
+# ROS2 / colcon関連
+build/
+install/
+log/
+.colcon/
+
+# VSCode関連（不要な設定）
+.vscode/
+.settings/
+
+# OSごとの一時ファイル
+.DS_Store
+Thumbs.db
+
+# モデルやworldの一時キャッシュ（必要に応じて）
+*.gazebo

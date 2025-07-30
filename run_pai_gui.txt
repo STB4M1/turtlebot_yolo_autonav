@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Docker コンテナを起動するスクリプト（AIロボット教材用 ROS2 環境）
+
+docker run -it \                         # 対話型（-it）でターミナルを開いて実行
+--name pai_ros2 \                        # コンテナの名前を "pai_ros2" に設定
+--privileged \                           # ハードウェア（USBやGUI）へのフルアクセスを許可（GUI/ROS用途で必要なことが多い）
+--shm-size=512m \                        # 共有メモリサイズを512MBに拡張（RVizやシミュレータでクラッシュしにくくする）
+-e RESOLUTION=1920x1080 \                # 画面解像度の指定（VNCなどでGUI表示する際の解像度）
+
+# ↓↓↓ ポートフォワーディング設定（ホスト⇔コンテナ間の通信ルール） ↓↓↓
+
+-p 15900:5900 \                          # VNC接続用（例：TightVNC Viewerで `localhost:15900` へ）
+-p 13389:3389 \                          # Windows リモートデスクトップ接続用（例：mstscコマンドなどで `localhost:13389`）
+-p 6080:80 \                             # WebブラウザでのGUI表示用（http://localhost:6080 にアクセス）
+-p 9090:9090 \                           # ROS2のrqtグラフやwebデバッグツール用（必要に応じて）
+
+# ↓↓↓ ディレクトリのマウント設定（ホスト側とコンテナ側で作業フォルダを共有） ↓↓↓
+
+-v $(pwd)/ros2_ws:/home/ubuntu/ros2_ws \ # カレントディレクトリのros2_wsを、コンテナ内の作業ディレクトリとリンク
+
+# ↓↓↓ 使用するDockerイメージ ↓↓↓
+# docker pull で取得したイメージは「グローバルに保存される」ので、パス指定は不要！
+# Dockerイメージは ローカルのDockerエンジンの中（/var/lib/docker）に保存される
+airobotbook/ros2-desktop-ai-robot-book-humble # 書籍用のROS2＋AI開発環境（ROS2 Humbleベース）
