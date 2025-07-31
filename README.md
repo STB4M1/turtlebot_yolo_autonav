@@ -121,3 +121,14 @@ pip install ultralytics
 - YOLOv8の軽量モデルを使用し、推論のスピードと精度のバランスを確保
 - `full_launch.py` により再現性の高い環境起動を実現
 
+---
+
+## 補足事項
+
+`my_worlds/models` フォルダに含まれるカスタムモデルをGazeboで正しく読み込ませるには、以下のようにしてホームディレクトリ下の Gazebo モデルフォルダにコピーしてください：
+
+```bash
+cp -r my_worlds/models/* ~/.gazebo/models/
+```
+
+この操作を行うことで、`mixed_room.world` 内で使用されるカスタムモデルがGazebo上で正しく表示されます。
